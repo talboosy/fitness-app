@@ -26,5 +26,51 @@
           </mat-card-actions>
         </mat-card>
   </form>
+ 
   
+</section>
+<section class="add-new-exercise" fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign="center center" fxLayoutGap.gt-md="20px">
+    <form
+      fxLayoutGap="10px"
+
+      [formGroup]="newExerciseForm"
+      (ngSubmit)="onAddExercise()"
+    >
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Exercise name"
+          formControlName="newExercise"
+        />
+        <mat-hint>Please add exercise </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          type="number"
+          matInput
+          placeholder="Calories"
+          formControlName="newExerciseCalories"
+        />
+        <mat-hint>Please add a number of calories</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          type="number"
+          matInput
+          placeholder="Duration"
+          formControlName="newExerciseDuration"
+        />
+        <mat-hint>Please add exercise duration</mat-hint>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        type="submit"
+        [disabled]="newExerciseForm.invalid"
+        color="primary"
+      >
+        Submit
+      </button>
+    </form>  
 </section>

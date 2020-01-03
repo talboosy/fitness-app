@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { TrainingService } from "../training.service";
 import { Exercise } from "../exercise.model";
-import { NgForm } from "@angular/forms";
+import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
 import { AngularFirestore } from "angularfire2/firestore";
 import { Observable, Subscription } from "rxjs";
 import "rxjs/add/operator/map";
@@ -14,6 +14,7 @@ import "rxjs/add/operator/map";
 export class NewTrainingComponent implements OnInit, OnDestroy {
   exercises: Exercise[];
   exerciseSubscription: Subscription;
+  newExerciseForm: FormGroup;
 
   constructor(
     private trainingService: TrainingService,
@@ -25,10 +26,24 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
       exercises => (this.exercises = exercises)
     );
     this.trainingService.fetchAvailableExercises();
+    this.newExerciseForm = new FormGroup({
+      newExercise: new FormControl(""),
+      newExerciseCalories: new FormControl(""),
+      newExerciseDuration: new FormControl("")
+    });
   }
 
   onStartTraining(form: NgForm) {
     this.trainingService.startExercise(form.value.exercise);
+  }
+
+  onAddExercise() {
+    this.trainingService.addNewExercise(
+      this.newExerciseForm.value.newExercise,
+      this.newExerciseForm.value.newExerciseCalories,
+      this.newExerciseForm.value.newExerciseDuration
+    );
+    console.log(this.newExerciseForm.value);
   }
 
   ngOnDestroy() {
