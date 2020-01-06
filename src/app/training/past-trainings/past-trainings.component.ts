@@ -1,6 +1,12 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  OnDestroy
+} from "@angular/core";
 import { MatTableDataSource, MatSort, MatPaginator } from "@angular/material";
-import { Subscription } from 'rxjs'
+import { Subscription } from "rxjs";
 
 import { Exercise } from "../exercise.model";
 import { TrainingService } from "../training.service";
@@ -10,7 +16,8 @@ import { TrainingService } from "../training.service";
   templateUrl: "./past-trainings.component.html",
   styleUrls: ["./past-trainings.component.css"]
 })
-export class PastTrainingsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class PastTrainingsComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns = ["date", "name", "duration", "calories", "state"];
   dataSource = new MatTableDataSource<Exercise>();
   private exChangedSubscription: Subscription;
@@ -39,6 +46,8 @@ export class PastTrainingsComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngOnDestroy() {
-    this.exChangedSubscription.unsubscribe();
+    if (this.exChangedSubscription) {
+      this.exChangedSubscription.unsubscribe();
+    }
   }
 }
