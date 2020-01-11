@@ -57,8 +57,13 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
       this.newExerciseForm.value.newExercise,
       this.newExerciseForm.value.newExerciseCalories,
       this.newExerciseForm.value.newExerciseDuration
-    );
+    )
     console.log(this.newExerciseForm.value);
+    this.newExerciseForm.reset();
+    for (let name in this.newExerciseForm.controls) {
+      this.newExerciseForm.controls[name].setErrors(null);
+   }
+
   }
 
   ngOnDestroy() {
